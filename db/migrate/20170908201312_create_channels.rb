@@ -3,7 +3,6 @@ class CreateChannels < ActiveRecord::Migration
     create_table :channels do |t|
       t.string :channel_name
       t.datetime :last_fetch
-      t.datetime :freshness
 
       t.timestamps null: false
     end

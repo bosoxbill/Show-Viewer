@@ -2,7 +2,6 @@ class CreateVideos < ActiveRecord::Migration
   def change
     create_table :videos do |t|
       t.belongs_to :channel, null: false
-      t.integer :channel_id, null: false
       t.datetime :release_date
       t.time :video_length
 
