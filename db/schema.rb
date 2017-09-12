@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908201443) do
+ActiveRecord::Schema.define(version: 20170912200148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,17 +19,31 @@ ActiveRecord::Schema.define(version: 20170908201443) do
   create_table "channels", force: :cascade do |t|
     t.string   "channel_name"
     t.datetime "last_fetch"
-    t.datetime "freshness"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
-  create_table "videos", force: :cascade do |t|
-    t.integer  "channel_id",   null: false
-    t.datetime "release_date"
-    t.time     "video_length"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+  create_table "playlists", force: :cascade do |t|
+    t.string "name"
+    t.string "videos"
   end
+
+  create_table "videos", force: :cascade do |t|
+    t.integer  "channel_id",          null: false
+    t.string   "title",               null: false
+    t.string   "yt_video_identifier", null: false
+    t.time     "release_date",        null: false
+    t.time     "video_length"
+    t.integer  "view_count"
+    t.integer  "like_count"
+    t.integer  "dislike_count"
+    t.text     "metadata"
+    t.boolean  "in_playlists?"
+    t.string   "playlists"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "videos", ["channel_id"], name: "index_videos_on_channel_id", using: :btree
 
 end
