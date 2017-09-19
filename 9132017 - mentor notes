@@ -32,3 +32,20 @@ irb(main):044:2> end
 irb(main):045:1> end
 
 2). commit and push first successful query
+
+
+This is an approach to getting dates and titles and IDs - not a great one
+
+Yt.configuration.api_key = "AIzaSyDyppvARn2SRo1oSWdyNTN5q6Wb1C0ZHF8"
+
+
+channel = Yt::Channel.new id: 'UCi7GJNg51C3jgmYTUwqoUXA'
+videos_by_date = Hash.new
+channel.videos.each do |v|
+  next unless v.published_at.present?
+  d = DateTime.parse(v.published_at.to_s)
+  videos_by_date[d] ||= Hash.new
+  videos_by_date[d][:id] = v.id
+  videos_by_date[d][:title] = v.title
+end
+
